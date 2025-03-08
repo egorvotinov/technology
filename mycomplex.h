@@ -1,39 +1,50 @@
 #ifndef _MY_COMPLEX_H_
 #define _MY_COMPLEX_H_
+
 #include <iostream>
-using namespace std;
-class Complex
-{double Re;
-	double Im; 
-	public:
-Complex(double aRe=0, double aIm=0);
-Complex(const Complex&);
-~Complex(    );
-void Set(double aRe, double aIm=0);
-operator double();
- double abs();
- friend istream& operator>>(   istream&,Complex&) ; 
 
+class Complex {
+private:
+    double Re;
+    double Im;
 
+public:
+    // Конструктор по умолчанию и копирования
+    Complex(double aRe = 0, double aIm = 0);
+    Complex(const Complex& other);
 
-friend ostream& operator<< (ostream&, Complex & );
+    // Деструктор
+    ~Complex();
 
-Complex operator+ (const Complex&);
-Complex operator- (const Complex&);
-Complex operator+ (const double&);
-friend 		Complex operator+ (const double&, const Complex&);
-Complex operator- (const double&);
-friend Complex operator- (const 	double&, const Complex&);
-Complex operator* (const Complex&);
-Complex operator* (const double&);
-friend Complex operator* (const double&, const Complex&)    ;Complex operator/ (const double&);
+    // Методы
+    void Set(double aRe, double aIm = 0);
+    double abs() const;
 
-    Complex& operator+= (const Complex&);
-Complex  &  operator-= (const Complex&)    ;
-    Complex& operator*= (const Complex& );  Complex& operator  += (const double&);
-Complex& operator-= (const double&);
-Complex  &operator  *=(const double  & );
-Complex  & operator /=( const   double & );
-Complex& operator = (  const   Complex&);
-Complex & operator= (const double&);};
+    // Операторы
+    operator double() const;
+
+    Complex operator+(const Complex& other) const;
+    Complex operator-(const Complex& other) const;
+    Complex operator+(const double& value) const;
+    Complex operator-(const double& value) const;
+    Complex operator*(const Complex& other) const;
+    Complex operator*(const double& value) const;
+    Complex operator/(const double& value) const;
+
+    Complex& operator+=(const Complex& other);
+    Complex& operator-=(const Complex& other);
+    Complex& operator*=(const Complex& other);
+    Complex& operator+=(const double& value);
+    Complex& operator-=(const double& value);
+    Complex& operator*=(const double& value);
+    Complex& operator/=(const double& value);
+
+    Complex& operator=(const Complex& other);
+    Complex& operator=(const double& value);
+
+    // Друзья
+    friend std::istream& operator>>(std::istream& in, Complex& complex);
+    friend std::ostream& operator<<(std::ostream& out, const Complex& complex);
+};
+
 #endif
